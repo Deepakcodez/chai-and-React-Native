@@ -12,6 +12,12 @@ export default   exStyle = StyleSheet.create({
         color : "white",
         fontSize : 50,
         textAlign : "center"
+    },
+    textInput:{
+        marginTop : 20,
+        borderColor : "red",
+        borderWidth  : 2,
+
     }
 })
 

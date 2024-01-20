@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Text, View } from 'react-native'
-
+import  exStyle from "./exStyle" 
 export const Learning = ({ message }) => {
 
     const [count, setCount] = useState(0)
@@ -14,14 +14,15 @@ export const Learning = ({ message }) => {
     return (
         <View>
             <Text style={{ fontSize: 20 }}>{message}</Text>
-            <Text style={{ fontSize: 50 }}>{count}</Text>
+            <Text style={exStyle.textStyle}>{count}</Text>
             <Button
+                
                 title='Press'
                 color={"green"}
                 onPress={pressHandler}
             />
             <Button
-                title='count'
+                title='count+'
                 color={"blue"}
                 onPress={coutHandler}
             />

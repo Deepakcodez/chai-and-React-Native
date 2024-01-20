@@ -18,6 +18,12 @@ export default   exStyle = StyleSheet.create({
         borderColor : "red",
         borderWidth  : 2,
 
+    },
+    data : {
+        backgroundColor : "blue",
+        padding : 10,
+        marginTop : 10,
+        color : "white",
     }
 })
 

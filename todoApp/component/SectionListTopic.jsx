@@ -7,7 +7,7 @@ export const SectionListTopic = () => {
     {
       id: 1,
       name: "deepak",
-      data: ["React", "node", "reactnative", "nextjs"]
+      data: ["React", "node", "reactnative", "nextjs"]      //we have to give name "data" it is fixed
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ export const SectionListTopic = () => {
       <SectionList
         sections={users}
         renderItem={({ item }) => <Text>{item}</Text>}
-        renderSectionHeader={({ section: { name } }) => <Text style={{fontSize:30}}>{name}</Text>}
+        renderSectionHeader={({ section: { name } }) => <Text style={{fontSize:30, color:"red"}}>{name}</Text>}
         keyExtractor={(item, index) => index.toString()} 
       />
     </View>

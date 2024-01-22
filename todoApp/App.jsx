@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Text, View } from "react-native";
 import Learning from "./component/Learning";
+import {  SectionListTopic } from "./component/SectionListTopic";
 
 const App = () => {
   const[messageFromApp, setMessageFromApp] = useState("hello world")
@@ -8,7 +9,8 @@ const App = () => {
     <View>
       <Text style={{fontSize:30}}>First program</Text>
       
-      <Learning message={messageFromApp} />
+      {/* <Learning message={messageFromApp} /> */}
+      <SectionListTopic/>
     </View>
   );
 };

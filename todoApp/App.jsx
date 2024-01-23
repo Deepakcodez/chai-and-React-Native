@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Learning from "./component/Learning";
 import { SectionListTopic } from "./component/SectionListTopic";
 import { ResponsiveDesign } from "./component/ResponsiveDesign";
+import  Buttons  from "./component/Buttons";
 
 const App = () => {
   // const[messageFromApp, setMessageFromApp] = useState("hello world")
@@ -14,7 +15,9 @@ const App = () => {
     //   {/* <SectionListTopic/> */}
     // </View>
 
-    <ResponsiveDesign />
+    // <ResponsiveDesign />
+    <Buttons/>
+
   );
 };
 

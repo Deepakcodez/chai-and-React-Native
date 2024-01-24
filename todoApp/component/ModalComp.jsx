@@ -9,7 +9,8 @@ export const ModalComp = () => {
           <Modal
            transparent={true}
            visible={show}
-
+        //    animationType='slide'
+           animationType='fade'
           >
             <View style={{flex:1, justifyContent:"center", alignItems:"center",  }}>
                 <View style={{backgroundColor:"white",width:300, paddingTop:40, paddingBottom:40, paddingHorizontal:20, borderRadius:10, shadowColor:"black",shadowOpacity:1,elevation:10}}>

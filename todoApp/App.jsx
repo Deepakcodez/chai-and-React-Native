@@ -6,6 +6,7 @@ import { ResponsiveDesign } from "./component/ResponsiveDesign";
 import  Buttons  from "./component/Buttons";
 import { Loader } from "./component/Loader";
 import { ModalComp } from "./component/ModalComp";
+import { PressAble } from "./component/PressAble";
 
 const App = () => {
   // const[messageFromApp, setMessageFromApp] = useState("hello world")
@@ -20,7 +21,8 @@ const App = () => {
     // <ResponsiveDesign />
     // <Buttons/>
     // <Loader/>
-    <ModalComp/>
+    // <ModalComp/>
+    <PressAble/>
 
   );
 };

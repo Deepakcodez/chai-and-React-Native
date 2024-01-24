@@ -9,6 +9,7 @@ export const Loader = () => {
           <ActivityIndicator
           size={300}
           color={"yellow"}
+          animating = {false}
           />
         </View>
     )

@@ -5,6 +5,7 @@ import { SectionListTopic } from "./component/SectionListTopic";
 import { ResponsiveDesign } from "./component/ResponsiveDesign";
 import  Buttons  from "./component/Buttons";
 import { Loader } from "./component/Loader";
+import { ModalComp } from "./component/ModalComp";
 
 const App = () => {
   // const[messageFromApp, setMessageFromApp] = useState("hello world")
@@ -18,7 +19,8 @@ const App = () => {
 
     // <ResponsiveDesign />
     // <Buttons/>
-    <Loader/>
+    // <Loader/>
+    <ModalComp/>
 
   );
 };

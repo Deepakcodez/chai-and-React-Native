@@ -4,6 +4,7 @@ import Learning from "./component/Learning";
 import { SectionListTopic } from "./component/SectionListTopic";
 import { ResponsiveDesign } from "./component/ResponsiveDesign";
 import  Buttons  from "./component/Buttons";
+import { Loader } from "./component/Loader";
 
 const App = () => {
   // const[messageFromApp, setMessageFromApp] = useState("hello world")
@@ -16,7 +17,8 @@ const App = () => {
     // </View>
 
     // <ResponsiveDesign />
-    <Buttons/>
+    // <Buttons/>
+    <Loader/>
 
   );
 };

@@ -11,11 +11,11 @@ export default function Buttons() {
         <View style={styles.warningBtn}><Text style={styles.btntextcolor}>press me</Text></View>
       </TouchableOpacity>
       <TouchableOpacity>
-    <Text onPress={()=>{Alert.alert("pressed")}} style={[styles.btntextcolor, styles.primaryBtn]}>press me</Text>
+        <Text onPress={() => { Alert.alert("pressed") }} style={[styles.btntextcolor, styles.primaryBtn]}>press me</Text>
       </TouchableOpacity>
       <View style={styles.btn}>
 
-      <Button color={"red"} title ="khatra"/>
+        <Button color={"red"} title="khatra" />
       </View>
     </View>
   );
@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  btn:{
-    margin:10,
-   
-    
+  btn: {
+    margin: 10,
+
+
   },
   successBtn: {
     backgroundColor: "green",

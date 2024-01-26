@@ -10,6 +10,6 @@ export const RightButton = (props) => {
     }
 
   return (
-    <Button title='Next' onPress={pressHandler} />
+    <Button title='Next' color={"green"} onPress={pressHandler} />
   )
 }

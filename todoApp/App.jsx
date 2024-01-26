@@ -10,6 +10,7 @@ import { PressAble } from "./component/PressAble";
 import { Stackdemo } from "./component/navigation/stack/Stackdemo";
 import { Tabdemo } from "./component/navigation/tab/Tabdemo";
 import { Top } from "./component/navigation/topTab/Top";
+import {  AsyncStorageDemo } from "./component/AsyncStorageDemo";
 
 const App = () => {
   // const[messageFromApp, setMessageFromApp] = useState("hello world")
@@ -28,7 +29,8 @@ const App = () => {
     // <PressAble/>
     // <Stackdemo/>
     // <Tabdemo/>
-    <Top/>
+    // <Top/>
+    <AsyncStorageDemo/>
 
   );
 };

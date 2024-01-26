@@ -8,6 +8,7 @@ import { Loader } from "./component/Loader";
 import { ModalComp } from "./component/ModalComp";
 import { PressAble } from "./component/PressAble";
 import { Stackdemo } from "./component/navigation/stack/Stackdemo";
+import { Tabdemo } from "./component/navigation/tab/Tabdemo";
 
 const App = () => {
   // const[messageFromApp, setMessageFromApp] = useState("hello world")
@@ -24,7 +25,8 @@ const App = () => {
     // <Loader/>
     // <ModalComp/>
     // <PressAble/>
-    <Stackdemo/>
+    // <Stackdemo/>
+    <Tabdemo/>
 
   );
 };

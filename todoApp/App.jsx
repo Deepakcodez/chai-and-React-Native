@@ -7,6 +7,7 @@ import  Buttons  from "./component/Buttons";
 import { Loader } from "./component/Loader";
 import { ModalComp } from "./component/ModalComp";
 import { PressAble } from "./component/PressAble";
+import { Stackdemo } from "./component/navigation/stack/Stackdemo";
 
 const App = () => {
   // const[messageFromApp, setMessageFromApp] = useState("hello world")
@@ -22,7 +23,8 @@ const App = () => {
     // <Buttons/>
     // <Loader/>
     // <ModalComp/>
-    <PressAble/>
+    // <PressAble/>
+    <Stackdemo/>
 
   );
 };

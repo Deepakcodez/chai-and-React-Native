@@ -9,6 +9,7 @@ import { ModalComp } from "./component/ModalComp";
 import { PressAble } from "./component/PressAble";
 import { Stackdemo } from "./component/navigation/stack/Stackdemo";
 import { Tabdemo } from "./component/navigation/tab/Tabdemo";
+import { Top } from "./component/navigation/topTab/Top";
 
 const App = () => {
   // const[messageFromApp, setMessageFromApp] = useState("hello world")
@@ -26,7 +27,8 @@ const App = () => {
     // <ModalComp/>
     // <PressAble/>
     // <Stackdemo/>
-    <Tabdemo/>
+    // <Tabdemo/>
+    <Top/>
 
   );
 };

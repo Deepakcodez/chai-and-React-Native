@@ -13,7 +13,7 @@ export default function Home() {
     useEffect(() => {
         const unsubscribe = database().ref("todo").on('value', (latestdata) => {
             setTodoList(latestdata.val());
-            
+
         });
 
         // Clean up the subscription when the component unmounts
@@ -21,7 +21,7 @@ export default function Home() {
             unsubscribe();
         };
     }, []);
- 
+
 
 
 
@@ -30,26 +30,30 @@ export default function Home() {
         try {
             if (isupdateTodo) {
                 // Updating an existing item
-                await database().ref(`todo/${cardIndex}`).update({ value: todo });
-                setIsUpdateTodo(false); // Reset update mode
+                if (todo.length > 0) {
+                    await database().ref(`todo/${cardIndex}`).update({ value: todo });
+                    setIsUpdateTodo(false);
+                }
 
             } else {
                 // Adding a new item
-                const index = todoList.length;
-                await database().ref(`todo/${index}`).set({ value: todo });
+                if (todo.length > 0) {
+                    const index = todoList.length;
+                    await database().ref(`todo/${index}`).set({ value: todo });
+                }
+                setTodo('');
             }
-    
-            setTodo('');
+
         } catch (error) {
             Alert.alert(error);
         }
     }
 
-    const onpressCard = (cardIndex,cardValue)=>{
+    const onpressCard = (cardIndex, cardValue) => {
         setIsUpdateTodo(true)
         setCardIndex(cardIndex)
         setTodo(cardValue)
-        console.log("card press",cardIndex)
+        console.log("card press", cardIndex)
 
     }
 
@@ -78,13 +82,13 @@ export default function Home() {
 
                 />
                 {
-                    isupdateTodo?
-                    <TouchableOpacity style={styles.button} onPress={addHandler}>
-                    <Text style={[styles.textLight, styles.textCenter]}>Update</Text>
-                </TouchableOpacity>:
-                <TouchableOpacity style={styles.button} onPress={addHandler}>
-                    <Text style={[styles.textLight, styles.textCenter]}>Add</Text>
-                </TouchableOpacity>
+                    isupdateTodo ?
+                        <TouchableOpacity style={styles.button} onPress={addHandler}>
+                            <Text style={[styles.textLight, styles.textCenter]}>Update</Text>
+                        </TouchableOpacity> :
+                        <TouchableOpacity style={styles.button} onPress={addHandler}>
+                            <Text style={[styles.textLight, styles.textCenter]}>Add</Text>
+                        </TouchableOpacity>
                 }
             </View>
             {/* //todo list  */}
@@ -92,16 +96,16 @@ export default function Home() {
                 <FlatList
                     data={todoList}
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item ,index}) => {
+                    renderItem={({ item, index }) => {
                         console.log('>>>>>>>>>>>item', item)
                         if (item !== null && item.value !== null) {
                             return (
-                                <TouchableOpacity style={styles.card} onPress={()=>onpressCard(index,item.value)}>
-                                    <Text style={[styles.textDark,styles.textLarge]} >{item.value}</Text>
+                                <TouchableOpacity style={styles.card} onPress={() => onpressCard(index, item.value)}>
+                                    <Text style={[styles.textDark, styles.textLarge]} >{item.value}</Text>
                                 </TouchableOpacity>
                             )
                         }
-                       
+
                     }
 
                     }
@@ -130,8 +134,8 @@ const styles = StyleSheet.create({
     textCenter: {
         textAlign: "center"
     },
-    textLarge:{
-        fontSize : 20,
+    textLarge: {
+        fontSize: 20,
 
     },
     inputbox: {
@@ -156,22 +160,22 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         height: 500
     },
-    card:{
-        paddingVertical : 20,
-        backgroundColor:"white",
-        marginHorizontal : 10,
-        marginVertical:5,
-        paddingLeft : 10,
-        borderRadius : 20,
-        shadowColor : "black",
-        shadowOpacity : 1,
-        elevation : 3,
+    card: {
+        paddingVertical: 20,
+        backgroundColor: "white",
+        marginHorizontal: 10,
+        marginVertical: 5,
+        paddingLeft: 10,
+        borderRadius: 20,
+        shadowColor: "black",
+        shadowOpacity: 1,
+        elevation: 3,
 
 
 
-        
 
-        
+
+
 
 
     }

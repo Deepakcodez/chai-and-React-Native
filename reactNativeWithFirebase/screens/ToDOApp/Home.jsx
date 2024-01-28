@@ -33,6 +33,7 @@ export default function Home() {
                 if (todo.length > 0) {
                     await database().ref(`todo/${cardIndex}`).update({ value: todo });
                     setIsUpdateTodo(false);
+                    setTodo('')
                 }
 
             } else {
@@ -55,6 +56,23 @@ export default function Home() {
         setTodo(cardValue)
         console.log("card press", cardIndex)
 
+    }
+
+    const onLongPressCard =(cardIndex, cardValue) =>{
+        setCardIndex(cardIndex)
+        Alert.alert("Delete",`Are you sure to Delete " ${cardValue}" ?`,
+        [
+            {
+                text : "Delete",
+                onPress : async()=>{
+                           await database().ref(`todo/${cardIndex}`).remove();
+                }
+            },
+            {
+                text : "Cancel",
+                
+            }
+        ])
     }
 
 
@@ -100,7 +118,11 @@ export default function Home() {
                         console.log('>>>>>>>>>>>item', item)
                         if (item !== null && item.value !== null) {
                             return (
-                                <TouchableOpacity style={styles.card} onPress={() => onpressCard(index, item.value)}>
+                                <TouchableOpacity style={styles.card} 
+                                onPress={() => onpressCard(index, item.value)}
+                                onLongPress={() => onLongPressCard(index, item.value)}
+                                
+                                >
                                     <Text style={[styles.textDark, styles.textLarge]} >{item.value}</Text>
                                 </TouchableOpacity>
                             )

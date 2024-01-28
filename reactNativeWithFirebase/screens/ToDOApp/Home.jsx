@@ -5,14 +5,15 @@ import database from '@react-native-firebase/database';
 export default function Home() {
     const [todo, setTodo] = useState(null)
     const [todoList, setTodoList] = useState(null)
+    const [isupdateTodo, setIsUpdateTodo] = useState(false)
+    const [cardIndex, setCardIndex] = useState(null)
 
 
 
     useEffect(() => {
         const unsubscribe = database().ref("todo").on('value', (latestdata) => {
             setTodoList(latestdata.val());
-            console.log('>>>>>>>>>>>todolist', todoList);
-            console.log('>>>>>>>>>>>data', latestdata);
+            
         });
 
         // Clean up the subscription when the component unmounts
@@ -26,17 +27,43 @@ export default function Home() {
 
 
     const addHandler = async () => {
-        const index = todoList.length;
         try {
-            const resp = await database().ref(`todo/${index }`).set({ value: todo })
+            if (isupdateTodo) {
+                // Updating an existing item
+                await database().ref(`todo/${cardIndex}`).update({ value: todo });
+                setIsUpdateTodo(false); // Reset update mode
 
-            setTodo('')
-
-
+            } else {
+                // Adding a new item
+                const index = todoList.length;
+                await database().ref(`todo/${index}`).set({ value: todo });
+            }
+    
+            setTodo('');
         } catch (error) {
-            Alert.alert(error)
+            Alert.alert(error);
         }
     }
+
+    const onpressCard = (cardIndex,cardValue)=>{
+        setIsUpdateTodo(true)
+        setCardIndex(cardIndex)
+        setTodo(cardValue)
+        console.log("card press",cardIndex)
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     return (
@@ -50,22 +77,28 @@ export default function Home() {
                     onChangeText={(text => setTodo(text))}
 
                 />
+                {
+                    isupdateTodo?
+                    <TouchableOpacity style={styles.button} onPress={addHandler}>
+                    <Text style={[styles.textLight, styles.textCenter]}>Update</Text>
+                </TouchableOpacity>:
                 <TouchableOpacity style={styles.button} onPress={addHandler}>
-                    <Text style={[styles.textLight, styles.textCenter]}>ADD</Text>
+                    <Text style={[styles.textLight, styles.textCenter]}>Add</Text>
                 </TouchableOpacity>
+                }
             </View>
             {/* //todo list  */}
             <View style={styles.listbox}>
                 <FlatList
                     data={todoList}
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) => {
+                    renderItem={({ item ,index}) => {
                         console.log('>>>>>>>>>>>item', item)
                         if (item !== null && item.value !== null) {
                             return (
-                                <View style={styles.card}>
+                                <TouchableOpacity style={styles.card} onPress={()=>onpressCard(index,item.value)}>
                                     <Text style={[styles.textDark,styles.textLarge]} >{item.value}</Text>
-                                </View>
+                                </TouchableOpacity>
                             )
                         }
                        
@@ -126,7 +159,8 @@ const styles = StyleSheet.create({
     card:{
         paddingVertical : 20,
         backgroundColor:"white",
-        margin : 10,
+        marginHorizontal : 10,
+        marginVertical:5,
         paddingLeft : 10,
         borderRadius : 20,
         shadowColor : "black",

@@ -30,25 +30,28 @@ export default function Home() {
         try {
             if (isupdateTodo) {
                 // Updating an existing item
-                if (todo.length > 0) {
+                if (todo && todo.length > 0) {
                     await database().ref(`todo/${cardIndex}`).update({ value: todo });
                     setIsUpdateTodo(false);
-                    setTodo('')
+                    setTodo('');
+                } else {
+                    Alert.alert("Please enter something");
                 }
-
             } else {
                 // Adding a new item
-                if (todo.length > 0) {
-                    const index = todoList.length;
+                if (todo && todo.length > 0) {
+                    const index = todoList ? todoList.length : 0;
                     await database().ref(`todo/${index}`).set({ value: todo });
+                    setTodo('');
+                } else {
+                    Alert.alert("Please enter something");
                 }
-                setTodo('');
             }
-
         } catch (error) {
-            Alert.alert(error);
+            Alert.alert(error.message || "An error occurred");
         }
     }
+    
 
     const onpressCard = (cardIndex, cardValue) => {
         setIsUpdateTodo(true)
@@ -58,21 +61,21 @@ export default function Home() {
 
     }
 
-    const onLongPressCard =(cardIndex, cardValue) =>{
+    const onLongPressCard = (cardIndex, cardValue) => {
         setCardIndex(cardIndex)
-        Alert.alert("Delete",`Are you sure to Delete " ${cardValue}" ?`,
-        [
-            {
-                text : "Delete",
-                onPress : async()=>{
-                           await database().ref(`todo/${cardIndex}`).remove();
+        Alert.alert("Delete", `Are you sure to Delete " ${cardValue}" ?`,
+            [
+                {
+                    text: "Delete",
+                    onPress: async () => {
+                        await database().ref(`todo/${cardIndex}`).remove();
+                    }
+                },
+                {
+                    text: "Cancel",
+
                 }
-            },
-            {
-                text : "Cancel",
-                
-            }
-        ])
+            ])
     }
 
 
@@ -118,10 +121,10 @@ export default function Home() {
                         console.log('>>>>>>>>>>>item', item)
                         if (item !== null && item.value !== null) {
                             return (
-                                <TouchableOpacity style={styles.card} 
-                                onPress={() => onpressCard(index, item.value)}
-                                onLongPress={() => onLongPressCard(index, item.value)}
-                                
+                                <TouchableOpacity style={styles.card}
+                                    onPress={() => onpressCard(index, item.value)}
+                                    onLongPress={() => onLongPressCard(index, item.value)}
+
                                 >
                                     <Text style={[styles.textDark, styles.textLarge]} >{item.value}</Text>
                                 </TouchableOpacity>

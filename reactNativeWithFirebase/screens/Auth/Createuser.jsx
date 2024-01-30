@@ -17,6 +17,7 @@ const Createuser = () => {
       const isuserCreated = await auth().createUserWithEmailAndPassword(email, pass)
       setEmail("")
       setPass("")
+      navigation.navigate("login")
 
 
     } catch (error) {

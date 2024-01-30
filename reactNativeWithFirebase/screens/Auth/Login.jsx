@@ -2,6 +2,8 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 import React, { useState } from 'react'
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
@@ -16,7 +18,9 @@ const Login = () => {
       const loginData = await auth().signInWithEmailAndPassword(email, pass)
       setEmail("")
       setPass("")
-      console.log(loginData);
+      await AsyncStorage.setItem('uid', loginData.user.uid);
+      await AsyncStorage.setItem('email', loginData.user.email);
+    
       navigation.navigate("home")
 
       

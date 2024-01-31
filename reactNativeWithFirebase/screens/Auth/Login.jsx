@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react'
 import auth from '@react-native-firebase/auth';
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -35,9 +35,11 @@ const Login = () => {
 
     }
   }
+  console.log(auth());
 
   const signinPress = () => {
-    navigation.navigate("register")
+    navigation.dispatch(StackActions.replace("register"))
+
   }
 
 

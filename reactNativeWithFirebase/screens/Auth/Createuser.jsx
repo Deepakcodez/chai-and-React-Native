@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react'
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
@@ -14,10 +14,14 @@ const Createuser = () => {
 
   const handleCreate = async () => {
     try {
-      const isuserCreated = await auth().createUserWithEmailAndPassword(email, pass)
-      setEmail("")
-      setPass("")
-      navigation.navigate("login")
+      if (!email || !pass) {
+        Alert.alert("Enter both email and password");
+      } else {
+        const isuserCreated = await auth().createUserWithEmailAndPassword(email, pass);
+        setEmail("");
+        setPass("");
+        navigation.navigate("login");
+      }
 
 
     } catch (error) {
@@ -29,6 +33,7 @@ const Createuser = () => {
 
   const loginPress = () => {
 navigation.navigate("login")
+console.log("login clicked")
   }
 
 

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Auth from '@react-native-firebase/auth';
 import { StackActions, useNavigation } from '@react-navigation/native';
+import { styles } from './Styles';
 
 
 const HomePage = () => {
@@ -24,29 +25,10 @@ const HomePage = () => {
   }
     , [])
   return (
-    <View>
-      <Text>Home</Text>
-      <Text>{userEmail}</Text>
-      <Text>{uid}</Text>
-      <View>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "red",
-            margin: 10,
-            padding: 10,
-            borderRadius: 10,
-
-
-
-          }}
-          onPress={async () => {
-            await Auth().signOut()
-            navigation.dispatch(StackActions.popToTop())
-          }} >
-          <Text
-            style={{ color: "white", textAlign: "center" }}
-          >Logout</Text>
-        </TouchableOpacity>
+    <View style={{padding:10}}>
+      
+      <View style={styles.listbox}>
+        <Text style={styles.listboxText}>Lists</Text>
       </View>
     </View>
   )

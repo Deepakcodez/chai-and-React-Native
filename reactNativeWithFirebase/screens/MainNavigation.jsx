@@ -9,12 +9,14 @@ import Home from './ToDOApp/Home';
 import HomePage from './Homepage';
 import Auth from '@react-native-firebase/auth';
 import SplashScreen from './SplashScreen';
+import HomeLogo from './shared/HomeLogo';
+import LogoutBtn from './shared/LogoutBtn';
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigation = () => {
 
-  
+
     return (
         <NavigationContainer>
             <SafeAreaView style={styles.container}>
@@ -29,7 +31,10 @@ const MainNavigation = () => {
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen name="home" component={HomePage}
-                        options={{ headerShown: false }}
+                        options={
+                            { headerTitle: () => <HomeLogo /> },
+                            { headerRight: () => <LogoutBtn /> }
+                        }
                     />
                 </Stack.Navigator>
             </SafeAreaView>
@@ -39,7 +44,7 @@ const MainNavigation = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        
+
     },
 });
 export default MainNavigation

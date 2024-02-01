@@ -17,6 +17,7 @@ const Stack = createNativeStackNavigator();
 const MainNavigation = () => {
 
 
+
     return (
         <NavigationContainer>
             <SafeAreaView style={styles.container}>
@@ -32,8 +33,11 @@ const MainNavigation = () => {
                     />
                     <Stack.Screen name="home" component={HomePage}
                         options={
-                            { headerTitle: () => <HomeLogo /> },
-                            { headerRight: () => <LogoutBtn /> }
+                            {
+                                headerTitle: () => <HomeLogo />,
+                                headerRight: () => <LogoutBtn />
+                            }
+
                         }
                     />
                 </Stack.Navigator>

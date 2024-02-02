@@ -14,6 +14,8 @@ const AddTaskScreen = () => {
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [date, setDate] = useState("")
   const [time, setTime] = useState("");
+  const[task, setTask] = useState("");
+  const [category, setCategory] = ("")
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -51,7 +53,8 @@ const AddTaskScreen = () => {
       {/* //from */}
       <View style={{ paddingBottom: responsiveWidth(30), }}>
         <Text style={{ paddingLeft: responsiveWidth(5), }}>What are you planning today?</Text>
-        <TextInput style={{ fontSize: responsiveFontSize(4), paddingHorizontal: responsiveWidth(5), }} />
+        <TextInput value={task} onChange={(text)=>setTask(text)} style={{ fontSize: responsiveFontSize(4), paddingHorizontal: responsiveWidth(5), }} />
+       
       </View >
       {/* form end  */}
       <View style={{
@@ -73,22 +76,20 @@ const AddTaskScreen = () => {
         </TouchableOpacity>
 
 
-        <View style={{ flexDirection: "row", gap: responsiveWidth(5) }}>
+        <View style={{ flexDirection: "row", alignItems:"center", gap:responsiveWidth(5) ,}}>
           <CalenderIcon name={"tago"} size={30} color={"gray"} />
-          <RNPickerSelect
-            placeholder={{ label: 'Select a tag', value: null }}
-            onValueChange={(value) => console.log(value)} // You can handle the selected value here
+        <RNPickerSelect
+            placeholder={{ label: 'Select category' , value: null }}
+            onValueChange={(value) => setCategory(value)} // You can handle the selected value here
             items={[
-              { label: 'All', value: 'All' },
-              { label: 'Music', value: 'Music' },
+              { label: 'Music', value: 'music' },
+              { label: 'School', value: 'school' },
+              { label: 'Work', value: 'work' },
               // Add more options as needed
             ]}
-            style={{ inputAndroid: { color: 'black' } }} // You can customize the style
-          />
-
-
-
-        </View>
+            style={{ inputAndroid: { color: 'black' , width:responsiveWidth(80)}  }} // You can customize the style
+            />
+            </View>
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
           mode="date"
@@ -101,6 +102,11 @@ const AddTaskScreen = () => {
           onConfirm={handleTimeConfirm}
           onCancel={hideTimePicker}
         />
+      <TouchableOpacity 
+      
+      style={{backgroundColor:"#5786ff", padding:responsiveHeight(1), borderRadius:responsiveWidth(2)}}>
+        <Text style={{fontSize:responsiveFontSize(3), textAlign:"center", color:"white"}}>Create</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

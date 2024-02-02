@@ -9,7 +9,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconOcticons from 'react-native-vector-icons/Octicons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
-import AddTodo from './shared/AddTodo';
+import AddTodoBtn from './shared/AddTodoBtn';
 const HomePage = () => {
 
   const [userEmail, setUserEmail] = useState("")
@@ -61,7 +61,7 @@ const HomePage = () => {
                   )}
                 </View>
                 <View>
-                  <Text style={{ fontSize: 30,fontWeight:500, }}>{item.title}</Text>
+                  <Text style={{ fontSize: 20,fontWeight:500, }}>{item.title}</Text>
                 </View>
                 <View>
                   <Text>{item.desc}</Text>
@@ -71,7 +71,7 @@ const HomePage = () => {
           }}
         />
       </SafeAreaView>
-      <AddTodo/>
+      <AddTodoBtn/>
     </View>
   )
 }

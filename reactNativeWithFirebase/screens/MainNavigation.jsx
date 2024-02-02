@@ -11,6 +11,7 @@ import Auth from '@react-native-firebase/auth';
 import SplashScreen from './SplashScreen';
 import HomeLogo from './shared/HomeLogo';
 import LogoutBtn from './shared/LogoutBtn';
+import AddTaskScreen from './AddTaskScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,10 @@ const MainNavigation = () => {
                             }
 
                         }
+                        
+                    />
+                    <Stack.Screen name="addTaskScreen" component={AddTaskScreen}
+                        options={{ headerShown: false }}
                     />
                 </Stack.Navigator>
             </SafeAreaView>

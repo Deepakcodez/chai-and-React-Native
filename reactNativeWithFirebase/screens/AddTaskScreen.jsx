@@ -1,5 +1,5 @@
 import { View, Text, TextInput, ImageBackground, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   responsiveHeight,
   responsiveWidth,
@@ -8,14 +8,31 @@ import {
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import CalenderIcon from 'react-native-vector-icons/AntDesign';
 import RNPickerSelect from 'react-native-picker-select';
+import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddTaskScreen = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [date, setDate] = useState("")
   const [time, setTime] = useState("");
-  const[task, setTask] = useState("");
-  const [category, setCategory] = ("")
+  const [task, setTask] = useState("");
+  const [category, setCategory] = useState("")
+  const [userId, setUserId] = useState("")
+
+  useEffect(() => {
+    const fetchuid = async () => {
+      let id = await AsyncStorage.getItem("uid");
+
+      setUserId(id);
+    };
+
+    fetchuid();
+  }, []);
+
+
+
+
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -44,6 +61,25 @@ const AddTaskScreen = () => {
     hideTimePicker();
   };
 
+  const createTodo = () => {
+    try {
+      firestore()
+        .collection('todos')
+        .add({
+          userId: userId,
+          date: date,
+          time: time,
+          task: task,
+          category: category
+        })
+        .then(() => {
+          console.log('todo added added!');
+        });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <View style={{ flex: 1, }}>
       <View style={{ paddingBottom: responsiveHeight(1), }}>
@@ -53,8 +89,8 @@ const AddTaskScreen = () => {
       {/* //from */}
       <View style={{ paddingBottom: responsiveWidth(30), }}>
         <Text style={{ paddingLeft: responsiveWidth(5), }}>What are you planning today?</Text>
-        <TextInput value={task} onChange={(text)=>setTask(text)} style={{ fontSize: responsiveFontSize(4), paddingHorizontal: responsiveWidth(5), }} />
-       
+        <TextInput value={task} onChangeText={(text) => setTask(text)} style={{ fontSize: responsiveFontSize(4), paddingHorizontal: responsiveWidth(5), }} />
+
       </View >
       {/* form end  */}
       <View style={{
@@ -76,36 +112,41 @@ const AddTaskScreen = () => {
         </TouchableOpacity>
 
 
-        <View style={{ flexDirection: "row", alignItems:"center", gap:responsiveWidth(5) ,}}>
+        <View
+         style={{ flexDirection: "row", alignItems: "center", gap:responsiveWidth(5), }}>
           <CalenderIcon name={"tago"} size={30} color={"gray"} />
-        <RNPickerSelect
-            placeholder={{ label: 'Select category' , value: null }}
-            onValueChange={(value) => setCategory(value)} // You can handle the selected value here
+
+          <RNPickerSelect
+            placeholder={{ label: 'Select category', value: null }}
+            onValueChange={(value) => { setCategory(value) }} // You can handle the selected value here
             items={[
               { label: 'Music', value: 'music' },
               { label: 'School', value: 'school' },
               { label: 'Work', value: 'work' },
               // Add more options as needed
             ]}
-            style={{ inputAndroid: { color: 'black' , width:responsiveWidth(80)}  }} // You can customize the style
-            />
-            </View>
+            style={{ inputAndroid: { color: 'black' , width:responsiveWidth(80)}  }} 
+          />
+
+        </View>
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
           mode="date"
           onConfirm={handleDateConfirm}
           onCancel={hideDatePicker}
+
         />
         <DateTimePickerModal
           isVisible={isTimePickerVisible}
           mode="time"
           onConfirm={handleTimeConfirm}
           onCancel={hideTimePicker}
+
         />
-      <TouchableOpacity 
-      
-      style={{backgroundColor:"#5786ff", padding:responsiveHeight(1), borderRadius:responsiveWidth(2)}}>
-        <Text style={{fontSize:responsiveFontSize(3), textAlign:"center", color:"white"}}>Create</Text>
+        <TouchableOpacity
+          onPress={createTodo}
+          style={{ backgroundColor: "#5786ff", padding: responsiveHeight(1), borderRadius: responsiveWidth(2) }}>
+          <Text style={{ fontSize: responsiveFontSize(3), textAlign: "center", color: "white" }}>Create</Text>
         </TouchableOpacity>
       </View>
     </View>

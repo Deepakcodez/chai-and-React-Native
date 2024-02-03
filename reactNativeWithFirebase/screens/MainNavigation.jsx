@@ -12,6 +12,7 @@ import SplashScreen from './SplashScreen';
 import HomeLogo from './shared/HomeLogo';
 import LogoutBtn from './shared/LogoutBtn';
 import AddTaskScreen from './AddTaskScreen';
+import AllTask from './AllTask';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,9 @@ const MainNavigation = () => {
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen name="login" component={Login}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen name="task" component={AllTask}
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen name="home" component={HomePage}

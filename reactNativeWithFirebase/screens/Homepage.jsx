@@ -16,10 +16,10 @@ const HomePage = () => {
   const [uid, setUid] = useState("")
   const navigation = useNavigation()
   const category = [
-    { title: "All", icon: "note", desc: "abc", iconColor: "#ff8969" },
-    { title: "Work", icon: "suitcase", desc: "abc", iconColor: "#69ff99" },
-    { title: "Music", icon: "music", desc: "abc", iconColor: "#69a5ff" },
-    { title: "School", icon: "school", desc: "abc", iconColor: "#ff69d2" },
+    { title: "All", icon: "note", desc: "abc", iconColor: "#ff8969" , navigateTo:"task" },
+    { title: "Work", icon: "suitcase", desc: "abc", iconColor: "#69ff99" , navigateTo:"task"},
+    { title: "Music", icon: "music", desc: "abc", iconColor: "#69a5ff" , navigateTo:"task"},
+    { title: "School", icon: "school", desc: "abc", iconColor: "#ff69d2" , navigateTo:"task"},
   ]
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const HomePage = () => {
           renderItem={({ item }) => {
 
             return (
-              <View style={styles.contBox}>
+              <TouchableOpacity onPress={()=>{navigation.navigate(item?.navigateTo)}} style={styles.contBox}>
                 <View>
 
                   {item.icon === 'note' ? (
@@ -66,7 +66,7 @@ const HomePage = () => {
                 <View>
                   <Text>{item.desc}</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             )
           }}
         />

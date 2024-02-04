@@ -10,6 +10,7 @@ import CalenderIcon from 'react-native-vector-icons/AntDesign';
 import RNPickerSelect from 'react-native-picker-select';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const AddTaskScreen = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -19,6 +20,7 @@ const AddTaskScreen = () => {
   const [task, setTask] = useState("");
   const [category, setCategory] = useState("")
   const [userId, setUserId] = useState("")
+  const navigation = useNavigation()
 
   useEffect(() => {
     const fetchuid = async () => {
@@ -43,7 +45,6 @@ const AddTaskScreen = () => {
   };
 
   const handleDateConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
     setDate(date.toISOString().split('T')[0]);
     hideDatePicker();
   };
@@ -56,13 +57,17 @@ const AddTaskScreen = () => {
   };
 
   const handleTimeConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
     setTime(date.toLocaleTimeString());
     hideTimePicker();
   };
 
   const createTodo = () => {
     try {
+
+        if(!task || !date || !time || !category){
+          return console.log("please fill all requirements");
+        }
+
       firestore()
         .collection('todos')
         .add({
@@ -74,6 +79,7 @@ const AddTaskScreen = () => {
         })
         .then(() => {
           console.log('todo added added!');
+          navigation.navigate("home")
         });
     } catch (error) {
       console.log(error)

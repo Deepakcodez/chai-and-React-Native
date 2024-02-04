@@ -10,16 +10,18 @@ import IconOcticons from 'react-native-vector-icons/Octicons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import AddTodoBtn from './shared/AddTodoBtn';
+import * as Animatable from 'react-native-animatable';
+
 const HomePage = () => {
 
   const [userEmail, setUserEmail] = useState("")
   const [uid, setUid] = useState("")
   const navigation = useNavigation()
   const category = [
-    { title: "All", icon: "note", desc: "abc", iconColor: "#ff8969" , navigateTo:"task" },
-    { title: "Work", icon: "suitcase", desc: "abc", iconColor: "#69ff99" , navigateTo:"task"},
-    { title: "Music", icon: "music", desc: "abc", iconColor: "#69a5ff" , navigateTo:"task"},
-    { title: "School", icon: "school", desc: "abc", iconColor: "#ff69d2" , navigateTo:"task"},
+    { title: "All", icon: "note", desc: "abc", iconColor: "#ff8969", navigateTo: "task" },
+    { title: "Work", icon: "suitcase", desc: "abc", iconColor: "#69ff99", navigateTo: "task" },
+    { title: "Music", icon: "music", desc: "abc", iconColor: "#69a5ff", navigateTo: "task" },
+    { title: "School", icon: "school", desc: "abc", iconColor: "#ff69d2", navigateTo: "task" },
   ]
 
   useEffect(() => {
@@ -34,7 +36,7 @@ const HomePage = () => {
   }
     , [])
   return (
-    <View style={{position:"relative" , padding: 10, flex: 1 }}>
+    <View style={{ position: "relative", padding: 10, flex: 1 }}>
 
       <View style={styles.listbox}>
         <Text style={styles.listboxText}>Lists</Text>
@@ -47,31 +49,34 @@ const HomePage = () => {
           renderItem={({ item }) => {
 
             return (
-              <TouchableOpacity onPress={()=>{navigation.navigate(item?.navigateTo)}} style={styles.contBox}>
-                <View>
+
+              <TouchableOpacity
+                onPress={() => { navigation.navigate(item?.navigateTo) }} style={styles.contBox}>
+                <Animatable.View animation={"fadeIn"}>
 
                   {item.icon === 'note' ? (
                     <IconOcticons name={item.icon} size={30} color={item.iconColor} />
-                  ) :  item.icon === 'suitcase' ? (
+                  ) : item.icon === 'suitcase' ? (
                     <IconEntypo name={item.icon} size={30} color={item.iconColor} />
                   ) : item.icon === 'school' ? (
                     <IconIonicons name={item.icon} size={30} color={item.iconColor} />
-                  ): (
+                  ) : (
                     <IconFontAwesome name={item.icon} size={30} color={item.iconColor} />
                   )}
-                </View>
+                </Animatable.View>
                 <View>
-                  <Text style={{ fontSize: 20,fontWeight:500, }}>{item.title}</Text>
+                  <Text style={{ fontSize: 20, fontWeight: 500, }}>{item.title}</Text>
                 </View>
                 <View>
                   <Text>{item.desc}</Text>
                 </View>
               </TouchableOpacity>
+
             )
           }}
         />
       </SafeAreaView>
-      <AddTodoBtn/>
+      <AddTodoBtn />
     </View>
   )
 }

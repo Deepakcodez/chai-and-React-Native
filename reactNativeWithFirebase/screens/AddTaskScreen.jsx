@@ -127,7 +127,7 @@ const AddTaskScreen = () => {
             onValueChange={(value) => { setCategory(value) }} // You can handle the selected value here
             items={[
               { label: 'Music', value: 'music' },
-              { label: 'School', value: 'school' },
+              { label: 'Study', value: 'study' },
               { label: 'Work', value: 'work' },
               // Add more options as needed
             ]}

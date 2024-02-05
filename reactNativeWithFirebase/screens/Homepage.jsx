@@ -18,10 +18,10 @@ const HomePage = () => {
   const [uid, setUid] = useState("")
   const navigation = useNavigation()
   const category = [
-    { title: "All", icon: "note", desc: "abc", iconColor: "#ff8969", navigateTo: "task" },
-    { title: "Work", icon: "suitcase", desc: "abc", iconColor: "#69ff99", navigateTo: "task" },
-    { title: "Music", icon: "music", desc: "abc", iconColor: "#69a5ff", navigateTo: "task" },
-    { title: "School", icon: "school", desc: "abc", iconColor: "#ff69d2", navigateTo: "task" },
+    { title: "All", icon: "note", desc: "Contains all Tasks", iconColor: "#ff8969", navigateTo: "task" ,category:"all"},
+    { title: "Work", icon: "suitcase", desc: "Contains work related Tasks", iconColor: "#69ff99", navigateTo: "task",category:"work" },
+    { title: "Music", icon: "music", desc: "contains music related Tasks", iconColor: "#69a5ff", navigateTo: "task",category:"music" },
+    { title: "Study", icon: "school", desc: "Contains study related Tasks", iconColor: "#ff69d2", navigateTo: "task",category:"study" },
   ]
 
   useEffect(() => {
@@ -51,24 +51,27 @@ const HomePage = () => {
             return (
 
               <TouchableOpacity
-                onPress={() => { navigation.navigate(item?.navigateTo) }} style={styles.contBox}>
+              onPress={() => {
+                navigation.navigate('task', { categoryData: item});
+              }}
+               style={styles.contBox}>
                 <Animatable.View animation={"fadeIn"}>
 
                   {item.icon === 'note' ? (
-                    <IconOcticons name={item.icon} size={30} color={item.iconColor} />
+                    <IconOcticons name={item.icon} size={40} color={item.iconColor} />
                   ) : item.icon === 'suitcase' ? (
-                    <IconEntypo name={item.icon} size={30} color={item.iconColor} />
+                    <IconEntypo name={item.icon} size={40} color={item.iconColor} />
                   ) : item.icon === 'school' ? (
-                    <IconIonicons name={item.icon} size={30} color={item.iconColor} />
+                    <IconIonicons name={item.icon} size={40} color={item.iconColor} />
                   ) : (
-                    <IconFontAwesome name={item.icon} size={30} color={item.iconColor} />
+                    <IconFontAwesome name={item.icon} size={40} color={item.iconColor} />
                   )}
                 </Animatable.View>
                 <View>
                   <Text style={{ fontSize: 20, fontWeight: 500, }}>{item.title}</Text>
                 </View>
                 <View>
-                  <Text>{item.desc}</Text>
+                  <Text style={{color:"#bfbfbf"}}>{item.desc}</Text>
                 </View>
               </TouchableOpacity>
 

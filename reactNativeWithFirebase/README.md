@@ -1,79 +1,60 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+ToDo Mobile App
+Description
+The ToDo mobile app allows users to manage their tasks efficiently by adding, updating, and deleting tasks. Users can categorize tasks and set specific times for each task. This README file provides a guide on how to use the app and its features.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+Features
+Add Task: Users can add new tasks to the list. Each task includes a title, category, and time.
 
-## Step 1: Start the Metro Server
+Update Task: Users can modify existing tasks by updating their title, category, or time.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+Delete Task: Users can delete tasks from the list.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+Categorize Tasks: Users can categorize tasks based on different categories such as work, personal, shopping, etc.
 
-```bash
-# using npm
+Technologies Used
+React Native
+Firestore (Firebase)
+AsyncStorage
+Installation
+Clone the repository to your local machine:
+bash
+Copy code
+git clone <repository_url>
+Navigate to the project directory:
+bash
+Copy code
+cd todo-mobile-app
+Install dependencies:
+bash
+Copy code
+npm install
+Run the app:
+bash
+Copy code
 npm start
+Usage
+Adding a Task:
 
-# OR using Yarn
-yarn start
-```
+To add a new task, tap the "+" button or the "Add Task" button.
+Enter the task title, select a category, and set the time for the task.
+Tap the "Save" button to add the task to the list.
+Updating a Task:
 
-## Step 2: Start your Application
+To update a task, tap and hold the task you want to update.
+Select the "Update" option.
+Modify the task details (title, category, time).
+Tap the "Save" button to apply the changes.
+Deleting a Task:
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+To delete a task, tap and hold the task you want to delete.
+Select the "Delete" option.
+Confirm the deletion by tapping "Yes" on the confirmation prompt.
+Screenshots
 
-### For Android
 
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Credits
+This app was developed by [Your Name].
+Icon made by [Author Name] from www.flaticon.com.
+License
+This project is licensed under the MIT License.

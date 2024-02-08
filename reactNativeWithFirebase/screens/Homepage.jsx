@@ -11,6 +11,7 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import AddTodoBtn from './shared/AddTodoBtn';
 import * as Animatable from 'react-native-animatable';
+const AnimatableCard =  Animatable.createAnimatableComponent(TouchableOpacity)
 
 const HomePage = () => {
 
@@ -46,11 +47,13 @@ const HomePage = () => {
         <FlatList
           data={category}
           numColumns={2}
-          renderItem={({ item }) => {
+          renderItem={({ item ,index}) => {
 
             return (
 
-              <TouchableOpacity
+              <AnimatableCard
+              // animation={"slideInUp"}
+              // duration={1000 * (index+.5)}
               onPress={() => {
                 navigation.navigate('task', { categoryData: item});
               }}
@@ -73,7 +76,7 @@ const HomePage = () => {
                 <View>
                   <Text style={{color:"#bfbfbf"}}>{item.desc}</Text>
                 </View>
-              </TouchableOpacity>
+              </AnimatableCard>
 
             )
           }}

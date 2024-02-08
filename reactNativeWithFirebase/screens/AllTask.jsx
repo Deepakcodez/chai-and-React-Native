@@ -1,16 +1,18 @@
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { Alert, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import firestore, { FieldValue, FieldPath, Filter } from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image } from 'react-native-animatable';
 import * as Animatable from 'react-native-animatable';
 import AddTodoBtn from './shared/AddTodoBtn';
+const AnimatableCards = Animatable.createAnimatableComponent(TouchableOpacity)
 
 const AllTask = ({ route }) => {
     const [category, setCategory] = useState("")
     const [userId, setUserId] = useState('');
     const [data, setData] = useState([])
+    const [cardIndex, setCardIndex] = useState(null)
     const { categoryData } = route.params;
 
     useEffect(() => {
@@ -33,13 +35,13 @@ const AllTask = ({ route }) => {
             function fetchTodo() {
                 let query;
                 if (category == "all") {
-                     query = firestore()
+                    query = firestore()
                         .collection('todos')
                         .where('userId', '==', userId)
                 }
                 else {
 
-                     query = firestore()
+                    query = firestore()
                         .collection('todos')
                         .where('userId', '==', userId)
                         .where('category', '==', category);
@@ -49,9 +51,11 @@ const AllTask = ({ route }) => {
                 unsubscribe = query.onSnapshot(querySnapshot => {
                     const documents = [];
                     querySnapshot.forEach(documentSnapshot => {
+
+                        console.log("id ",documentSnapshot.id);
                         // Check if documentSnapshot and data function exist before calling
                         if (documentSnapshot.exists && documentSnapshot.data) {
-                            documents.push(documentSnapshot.data());
+                            documents.push({ ...documentSnapshot.data(), id: documentSnapshot.id,});
                             console.log('todo data: ', documentSnapshot.data());
                         } else {
                             console.log('Document does not exist or data is undefined.');
@@ -73,6 +77,46 @@ const AllTask = ({ route }) => {
             console.log('Error fetching todo data: ', error);
         }
     }, [userId]);
+
+
+    const deleteTodo = (cardIndex, cardValue,itemId) => {
+
+        Alert.alert(
+            `Are you sure you want to delete ${cardValue} ?`,   
+            undefined,
+            [
+                {
+                    text: "Delete",
+                    onPress: async () => {
+                        try {
+                            await firestore()
+                                .collection('todos')
+                                .doc(itemId)
+                                .delete();
+                            console.log("Todo deleted successfully");
+                        } catch (error) {
+                            console.error("Error deleting todo:", error);
+                        }
+                    }
+                },
+                {
+                    text: "Cancel",
+                    style: "cancel"
+                }
+            ]
+        );
+    };
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <View
@@ -99,7 +143,7 @@ const AllTask = ({ route }) => {
                     source={require('../Assets/logo.png')}
                     animation={"zoomIn"}
                 />
-                <Text style={{fontSize:responsiveFontSize(5), color:"white", position:"absolute",bottom:responsiveHeight(3),left:responsiveWidth(7)}}>{categoryData.title}</Text>
+                <Text style={{ fontSize: responsiveFontSize(5), color: "white", position: "absolute", bottom: responsiveHeight(3), left: responsiveWidth(7) }}>{categoryData.title}</Text>
             </View>
             <View style={{
                 flex: 1,
@@ -108,9 +152,13 @@ const AllTask = ({ route }) => {
             }}>
                 <FlatList
                     data={data}
-                    renderItem={({ item }) => {
+                    renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity style={{}}>
+                            <AnimatableCards style={{}}
+                                animation={"slideInUp"}
+                                duration={1000 * (index + 1)}
+                                onLongPress={() => deleteTodo(index, item.task,item.id)}
+                            >
 
                                 <View style={{
                                     marginBottom: responsiveHeight(6),
@@ -118,19 +166,20 @@ const AllTask = ({ route }) => {
 
                                 }}>
                                     <Text style={{ fontSize: responsiveFontSize(2.5) }}>{item.task}</Text>
-                                    <Text style={{ fontSize: responsiveFontSize(1.2) }}>{item.time}</Text>
+                                    <Text style={{ fontSize: responsiveFontSize(1.2) }}>{item.id}</Text>
+
                                 </View>
                                 <View>
 
                                 </View>
 
-                            </TouchableOpacity>
+                            </AnimatableCards>
                         )
                     }}
                 />
 
             </View>
-            <AddTodoBtn/>
+            <AddTodoBtn />
         </View>
     );
 };

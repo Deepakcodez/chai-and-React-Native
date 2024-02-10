@@ -75,7 +75,8 @@ const AddTaskScreen = () => {
           date: date,
           time: time,
           task: task,
-          category: category
+          category: category,
+          completed : false,
         })
         .then(() => {
           console.log('todo added added!');

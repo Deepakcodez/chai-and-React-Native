@@ -12,6 +12,8 @@ const AllTask = ({ route }) => {
     const [category, setCategory] = useState("")
     const [userId, setUserId] = useState('');
     const [data, setData] = useState([])
+    const [tickBoxColor, setTickBoxColor] = useState("white")
+    const [isCompleted, setCompleted] = useState(false)
     const [cardIndex, setCardIndex] = useState(null)
     const { categoryData } = route.params;
 
@@ -52,10 +54,10 @@ const AllTask = ({ route }) => {
                     const documents = [];
                     querySnapshot.forEach(documentSnapshot => {
 
-                        console.log("id ",documentSnapshot.id);
+                        console.log("id ", documentSnapshot.id);
                         // Check if documentSnapshot and data function exist before calling
                         if (documentSnapshot.exists && documentSnapshot.data) {
-                            documents.push({ ...documentSnapshot.data(), id: documentSnapshot.id,});
+                            documents.push({ ...documentSnapshot.data(), id: documentSnapshot.id, });
                             console.log('todo data: ', documentSnapshot.data());
                         } else {
                             console.log('Document does not exist or data is undefined.');
@@ -79,10 +81,10 @@ const AllTask = ({ route }) => {
     }, [userId]);
 
 
-    const deleteTodo = (cardIndex, cardValue,itemId) => {
+    const deleteTodo = (cardIndex, cardValue, itemId) => {
 
         Alert.alert(
-            `Are you sure you want to delete ${cardValue} ?`,   
+            `Are you sure you want to delete ${cardValue} ?`,
             undefined,
             [
                 {
@@ -106,6 +108,22 @@ const AllTask = ({ route }) => {
             ]
         );
     };
+
+
+    const tickBtnHandler = async (cardIndex, itemId) => {
+        console.log('>>>>>>>>>>>', itemId)
+        setCompleted(!isCompleted)
+
+
+        try {
+            await firestore().collection('todos').doc(itemId).update({ completed: isCompleted })
+
+        } catch (error) {
+            console.log('>>>>>>>>>>>', error)
+        }
+
+
+    }
 
 
 
@@ -157,16 +175,46 @@ const AllTask = ({ route }) => {
                             <AnimatableCards style={{}}
                                 animation={"slideInUp"}
                                 duration={1000 * (index + 1)}
-                                onLongPress={() => deleteTodo(index, item.task,item.id)}
+                                onLongPress={() => deleteTodo(index, item.task, item.id)}
                             >
 
                                 <View style={{
-                                    marginBottom: responsiveHeight(6),
-                                    paddingLeft: responsiveWidth(6),
+                                    marginBottom: responsiveHeight(2),
+                                    marginHorizontal: responsiveHeight(4),
+                                    paddingHorizontal: responsiveWidth(1),
+                                    paddingBottom: responsiveWidth(2),
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    borderBottomWidth: .2,
+
+
 
                                 }}>
-                                    <Text style={{ fontSize: responsiveFontSize(2.5) }}>{item.task}</Text>
-                                    <Text style={{ fontSize: responsiveFontSize(1.2) }}>{item.id}</Text>
+                                    <View>
+                                        <Text style={{
+                                             textDecorationColor: 'red',
+                                            fontSize: responsiveFontSize(2.5), textDecorationLine: item.completed ? "line-through" : 'none',
+                                        }}>
+                                            {item.task}
+                                        </Text>
+                                        <Text style={{ fontSize: responsiveFontSize(1.2) }}>{item.time}</Text>
+                                    </View>
+                                    <TouchableOpacity
+                                        onPress={() => tickBtnHandler(index, item.id)}
+                                        style={{
+                                            height: responsiveHeight(3),
+                                            width: responsiveHeight(3),
+                                            backgroundColor: item.completed ? '#5786ff'
+                                                : 'white',
+                                            borderRadius: responsiveHeight(1),
+                                            borderWidth: responsiveHeight(.2),
+                                            borderColor: "gray",
+
+
+                                        }}>
+
+                                    </TouchableOpacity>
 
                                 </View>
                                 <View>
